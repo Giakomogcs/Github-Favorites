@@ -22,8 +22,8 @@ export class Favorites {
     try{
       const userExists = this.entries.find(entry => entry.login.toLowerCase() === username.toLowerCase())
       
-      this.root.querySelector('.search input').value = "";
       if(userExists){
+        this.root.querySelector('.search input').value = "";
         throw new Error('Usuário já cadastrado!')
       }
 
@@ -70,6 +70,14 @@ export class FavoritesView extends Favorites {
     addButton.onclick = () => {
       const {value} = this.root.querySelector('.search input')
       this.add(value)
+    }
+    
+    this.root.addEventListener('keydown', EventEnter)
+
+    function EventEnter(e) {
+      if(e.key == 'Enter'){
+        addButton.onclick()
+      }
     }
   }
 
